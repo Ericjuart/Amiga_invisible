@@ -177,13 +177,16 @@
 
     // Enviar los resultados por correo
     function sendResultsWithLinks(pairs) {
+    // Obtenemos la URL base dinámicamente
+    const baseUrl = window.location.origin;
+
     for (const participant of participantsData) {
         const recipientName = pairs[participant.name];
         const recipientData = participantsData.find(p => p.name === recipientName);
 
         // Generar un identificador único (puede ser más complejo según la seguridad requerida)
         const identifier = btoa(`${participant.name}-${recipientName}`); // Base64 encode
-        const resultUrl = `https://673b5006633da10008fa72cc--thunderous-flan-c8c78b.netlify.app/resultado.html?user=${encodeURIComponent(identifier)}`;
+        const resultUrl = baseUrl + `/resultado.html?user=${encodeURIComponent(identifier)}`;
 
         // Mensaje personalizado
         const message = `Hola ${participant.name}, entra a este enlace para descubrir a quién tienes que regalar: ${resultUrl}`;
