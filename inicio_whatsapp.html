@@ -184,7 +184,7 @@
 
         // Generar un identificador único (puede ser más complejo según la seguridad requerida)
         const identifier = btoa(`${participant.name}-${recipientName}`); // Base64 encode
-        const resultUrl = `http://https://lustrous-muffin-14742c.netlify.app/resultado.html?user=${encodeURIComponent(identifier)}`;
+        const resultUrl = `https://lustrous-muffin-14742c.netlify.app/resultado.html?user=${encodeURIComponent(identifier)}`;
 
         // Mensaje personalizado
         const message = `Hola ${participant.name}, entra a este enlace para descubrir a quién tienes que regalar: ${resultUrl}`;
