@@ -5,15 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resultado Amigo Invisible</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
-    .recipient { font-size: 1.5em; font-weight: bold; margin-top: 20px; }
-    .recipient img { max-width: 300px; border-radius: 10px; margin-top: 10px; }
+    body { 
+      font-family: Arial, sans-serif; 
+      text-align: center; 
+      margin: 20px; 
+    }
+    h1 { 
+      font-size: 2em; 
+      color: #4CAF50; 
+    }
+    h3 { 
+      font-size: 1.5em; 
+      color: #333; 
+    }
+    .carousel {
+      margin-top: 20px;
+      position: relative;
+      max-width: 300px;
+      height: 300px;
+      margin: 20px auto;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+    .carousel img {
+      position: absolute;
+      max-width: 100%;
+      transition: opacity 1s ease;
+      opacity: 0;
+    }
+    .carousel img.active {
+      opacity: 1;
+    }
+    .all-friends {
+      max-width: 100%;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      color: #fff;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 <body>
-  <h1>Amigo Invisible</h1>
-  <p>Descubre a quién tienes que regalar:</p>
-  <div id="result" class="recipient"></div>
+  <h1 id="welcome-message">Cargando...</h1>
+  <h3 id="reveal-message"></h3>
+  <img src="Amigas/group-photo.jpg" alt="Todas las amigas" class="all-friends">
+  <button id="reveal-button">Descubrir</button>
+  <div class="carousel" id="carousel"></div>
 
   <script>
     // Datos de los participantes
@@ -29,34 +75,59 @@
     const identifier = urlParams.get("user");
 
     if (!identifier) {
-        document.getElementById("result").innerText = "Error: No se pudo encontrar tu resultado.";
-        console.log(identifier);
+        document.getElementById("welcome-message").innerText = "Error: No se pudo encontrar tu resultado.";
     } else {
         try {
             // Decodificar el identificador
             const decodedIdentifier = atob(identifier);
-            console.log("Identificador decodificado:", decodedIdentifier); // Verificación de la decodificación
-
-            // Separar el remitente y destinatario
             const [sender, recipientName] = decodedIdentifier.split("-");
-            console.log("Remitente:", sender, "Destinatario:", recipientName); // Verificación de separación
 
-            // Buscar al destinatario comparando sin distinguir mayúsculas/minúsculas
             const recipient = participantsData.find(p => p.name.toLowerCase().trim() === recipientName.toLowerCase().trim());
-            console.log("participantes: ",participantsData.values, "elegido: ", recipientName.toLowerCase().trim());
+
             if (!recipient) {
                 throw new Error("Destinatario no encontrado");
             }
 
-            // Mostrar los datos del destinatario
-            const resultDiv = document.getElementById("result");
-            resultDiv.innerHTML = `
-                <p>A quien debes regalar es: <strong>${recipient.name}</strong></p>
-                <img src="${recipient.image}" alt="${recipient.name}">
-            `;
+            // Configurar mensajes iniciales
+            document.getElementById("welcome-message").innerText = `HOLA ${sender.toUpperCase()}!!!`;
+            document.getElementById("reveal-message").innerText = "Eres la amiga invisible de...";
+
+            // Preparar el carrusel
+            const carousel = document.getElementById("carousel");
+            participantsData.forEach(participant => {
+                if (participant.name !== sender) {
+                    const img = document.createElement("img");
+                    img.src = participant.image;
+                    img.alt = participant.name;
+                    carousel.appendChild(img);
+                }
+            });
+
+            // Manejar el botón "Descubrir"
+            let currentIndex = 0;
+            const images = document.querySelectorAll(".carousel img");
+            const totalImages = images.length;
+
+            document.getElementById("reveal-button").addEventListener("click", () => {
+                if (images.length === 0) return;
+
+                // Mostrar el carrusel
+                images[currentIndex].classList.add("active");
+                const interval = setInterval(() => {
+                    images[currentIndex].classList.remove("active");
+                    currentIndex = (currentIndex + 1) % totalImages;
+
+                    if (images[currentIndex].alt === recipient.name) {
+                        clearInterval(interval);
+                        images[currentIndex].classList.add("active");
+                    } else {
+                        images[currentIndex].classList.add("active");
+                    }
+                }, 2000);
+            });
         } catch (error) {
             console.error("Error procesando el identificador:", error);
-            document.getElementById("result").innerText = "Error: No se pudo procesar tu resultado.";
+            document.getElementById("welcome-message").innerText = "Error: No se pudo procesar tu resultado.";
         }
     }
   </script>
