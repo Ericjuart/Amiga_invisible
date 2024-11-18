@@ -32,9 +32,15 @@
     } else {
         try {
             // Decodificar el identificador
-            const decodedIdentifier = atob(identifier); // Decodificar de base64
-            const [sender, recipientName] = decodedIdentifier.split("-"); // Obtener el remitente y destinatario
-            const recipient = participantsData.find(p => p.name === recipientName);
+            const decodedIdentifier = atob(identifier);
+            console.log("Identificador decodificado:", decodedIdentifier); // Verificación de la decodificación
+
+            // Separar el remitente y destinatario
+            const [sender, recipientName] = decodedIdentifier.split("-");
+            console.log("Remitente:", sender, "Destinatario:", recipientName); // Verificación de separación
+
+            // Buscar al destinatario comparando sin distinguir mayúsculas/minúsculas
+            const recipient = participantsData.find(p => p.name.toLowerCase().trim() === recipientName.toLowerCase().trim());
 
             if (!recipient) {
                 throw new Error("Destinatario no encontrado");
