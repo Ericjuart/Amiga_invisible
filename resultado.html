@@ -47,6 +47,7 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      margin-top: 10px;
     }
     button:hover {
       background-color: #0056b3;
@@ -56,8 +57,8 @@
 <body>
   <h1 id="welcome-message">Cargando...</h1>
   <h3 id="reveal-message"></h3>
-  <img src="Amigas/amigas.jpg" alt="Todas las amigas" class="all-friends">
   <button id="reveal-button">Descubrir</button>
+  <img src="Amigas/amigas.jpg" alt="Todas las amigas" class="all-friends">
   <div class="carousel-container">
     <div class="carousel" id="carousel"></div>
   </div>
@@ -107,7 +108,7 @@
             const images = document.querySelectorAll(".carousel img");
             const totalImages = images.length;
             const duration = 10000; // Duración del carrusel (10 segundos)
-            const intervalTime = 2000; // Tiempo entre cambios (2 segundos)
+            const intervalTime = 500; // Tiempo entre cambios (2 segundos)
 
             document.getElementById("reveal-button").addEventListener("click", () => {
                 let elapsed = 0;
