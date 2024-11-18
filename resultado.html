@@ -20,7 +20,8 @@
     const participantsData = [
         { name: "Ana", email: "ana@gmail.com", image: "ana.jpg" },
         { name: "Laura", email: "laura@gmail.com", image: "laura.jpg" },
-        { name: "Maria", email: "maria@gmail.com", image: "maria.jpg" }
+        { name: "Maria", email: "maria@gmail.com", image: "maria.jpg" },
+        { name: "Carmen", email: "carmen@gmail.com", image: "carmen.jpg" }
     ];
 
     // Leer el identificador de la URL
@@ -42,7 +43,7 @@
 
             // Buscar al destinatario comparando sin distinguir mayúsculas/minúsculas
             const recipient = participantsData.find(p => p.name.toLowerCase().trim() === recipientName.toLowerCase().trim());
-            console.log("participantes: ",participantsData.name(), "elegido: ", recipientName.toLowerCase().trim());
+            console.log("participantes: ",participantsData.values, "elegido: ", recipientName.toLowerCase().trim());
             if (!recipient) {
                 throw new Error("Destinatario no encontrado");
             }

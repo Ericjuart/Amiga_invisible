@@ -30,7 +30,7 @@
     <img src="https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif" alt="Animación graciosa">
   </div>
   <script>
-    const participants = ["Ana", "Laura", "María", "Carmen", "Sofía"]; // Lista de nombres
+    const participants = ["Ana", "Laura", "Maria", "Carmen"]; // Lista de nombres
     const previousData = JSON.parse(localStorage.getItem("previousData")) || {}; // Datos guardados
 
     let selectedRecipients = {}; // Registro dinámico de selecciones
@@ -140,10 +140,9 @@
     const participantsData = [
         { name: "Ana", email: "ericjuarez11@gmail.com", image: "https://drive.google.com/uc?export=view&id=1CPgGF0DOHektZ-RztyAqzlTm4mzAfha1", phone: "+34678051217" },
         { name: "Laura", email: "ericjuarez11@gmail.com", image: "https://ih1.redbubble.net/image.1387091196.7732/st,small,845x845-pad,1000x1000,f8f8f8.jpg", phone: "+34678051217" },
-        { name: "María", email: "ericjuarez11@gmail.com", image: "https://ih1.redbubble.net/image.1387091196.7732/st,small,845x845-pad,1000x1000,f8f8f8.jpg", phone: "+34678051217" },
-        { name: "Lucía", email: "ericjuarez11@gmail.com", image: "https://ih1.redbubble.net/image.1387091196.7732/st,small,845x845-pad,1000x1000,f8f8f8.jpg", phone: "+34678051217" }
+        { name: "Maria", email: "ericjuarez11@gmail.com", image: "https://ih1.redbubble.net/image.1387091196.7732/st,small,845x845-pad,1000x1000,f8f8f8.jpg", phone: "+34678051217" },
+        { name: "Carmen", email: "ericjuarez11@gmail.com", image: "https://ih1.redbubble.net/image.1387091196.7732/st,small,845x845-pad,1000x1000,f8f8f8.jpg", phone: "+34678051217" }
     ];
-
     // Generar el sorteo aleatorio respetando restricciones
     function generateRandomPairs() {
         let valid = false;
