@@ -24,8 +24,8 @@
       max-width: 300px;
       height: 300px;
       overflow: hidden;
-      border-radius: 10px;
       position: relative;
+      border-radius: 10px;
     }
     .carousel {
       display: flex;
@@ -59,7 +59,7 @@
   <h1 id="welcome-message">Cargando...</h1>
   <h3 id="reveal-message"></h3>
   <button id="reveal-button">Descubrir</button>
-  <img src="Amigas/group-photo.jpg" alt="Todas las amigas" class="all-friends" id="group-photo">
+  <img src="Amigas/amigas.jpg" alt="Todas las amigas" class="all-friends" id="group-photo">
   <div class="carousel-container" id="carousel-container">
     <div class="carousel" id="carousel"></div>
   </div>
@@ -92,17 +92,17 @@
             }
 
             // Configurar mensajes iniciales
-            document.getElementById("welcome-message").innerText = `HOLA ${sender.toUpperCase()}!!!`;
+            document.getElementById("welcome-message").innerText = `¡Hola, ${sender.toUpperCase()}!`;
             document.getElementById("reveal-message").innerText = "Eres la amiga invisible de...";
 
-            // Filtrar imágenes del carrusel (excluir al remitente)
-            const carouselImages = participantsData
+            // Filtrar imágenes del slider (excluir al remitente)
+            const sliderImages = participantsData
               .filter(p => p.name.toLowerCase() !== sender.toLowerCase()) // Omitir remitente
               .map(p => ({ name: p.name, image: p.image }));
 
-            // Preparar el carrusel
+            // Preparar el slider
             const carousel = document.getElementById("carousel");
-            carouselImages.forEach(participant => {
+            sliderImages.forEach(participant => {
                 const img = document.createElement("img");
                 img.src = participant.image;
                 img.alt = participant.name;
@@ -111,34 +111,34 @@
 
             // Manejar el botón "Descubrir"
             let currentIndex = 0;
-            const totalImages = carouselImages.length;
-            const duration = 10000; // Duración del carrusel (10 segundos)
-            const intervalTime = 300; // Tiempo entre cambios (0.3 segundos)
-
+            const totalImages = sliderImages.length;
+            const slideDuration = 10000; // Duración total del slider (10 segundos)
+            const slideIntervalTime = 300; // Tiempo entre transiciones (0.3 segundos)
             const revealButton = document.getElementById("reveal-button");
+
             revealButton.addEventListener("click", () => {
                 // Ocultar la imagen grupal y el botón
                 document.getElementById("group-photo").style.display = "none";
                 revealButton.style.display = "none";
 
-                // Mostrar el carrusel
+                // Mostrar el slider
                 const carouselContainer = document.getElementById("carousel-container");
                 carouselContainer.style.display = "block";
 
+                // Slider infinito
                 let elapsed = 0;
                 const interval = setInterval(() => {
-                    // Rotar imágenes
                     currentIndex = (currentIndex + 1) % totalImages;
                     carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-                    elapsed += intervalTime;
+                    elapsed += slideIntervalTime;
 
-                    // Detener el carrusel en la destinataria tras 10 segundos
-                    if (elapsed >= duration) {
+                    // Detener el slider en la destinataria tras 10 segundos
+                    if (elapsed >= slideDuration) {
                         clearInterval(interval);
-                        const finalIndex = carouselImages.findIndex(p => p.name === recipient.name);
+                        const finalIndex = sliderImages.findIndex(p => p.name === recipient.name);
                         carousel.style.transform = `translateX(-${finalIndex * 100}%)`;
                     }
-                }, intervalTime);
+                }, slideIntervalTime);
             });
         } catch (error) {
             console.error("Error procesando el identificador:", error);
