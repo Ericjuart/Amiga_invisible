@@ -18,23 +18,22 @@
       font-size: 1.5em; 
       color: #333; 
     }
-    .carousel {
-      margin-top: 20px;
-      position: relative;
+    .carousel-container {
+      margin: 20px auto;
       max-width: 300px;
       height: 300px;
-      margin: 20px auto;
       overflow: hidden;
       border-radius: 10px;
+      position: relative;
+    }
+    .carousel {
+      display: flex;
+      transition: transform 1s ease-in-out;
     }
     .carousel img {
-      position: absolute;
-      max-width: 100%;
-      transition: opacity 1s ease;
-      opacity: 0;
-    }
-    .carousel img.active {
-      opacity: 1;
+      min-width: 100%;
+      height: 300px;
+      border-radius: 10px;
     }
     .all-friends {
       max-width: 100%;
@@ -57,9 +56,11 @@
 <body>
   <h1 id="welcome-message">Cargando...</h1>
   <h3 id="reveal-message"></h3>
-  <img src="Amigas/group-photo.jpg" alt="Todas las amigas" class="all-friends">
+  <img src="Amigas/amigas.jpg" alt="Todas las amigas" class="all-friends">
   <button id="reveal-button">Descubrir</button>
-  <div class="carousel" id="carousel"></div>
+  <div class="carousel-container">
+    <div class="carousel" id="carousel"></div>
+  </div>
 
   <script>
     // Datos de los participantes
@@ -95,35 +96,34 @@
             // Preparar el carrusel
             const carousel = document.getElementById("carousel");
             participantsData.forEach(participant => {
-                if (participant.name !== sender) {
-                    const img = document.createElement("img");
-                    img.src = participant.image;
-                    img.alt = participant.name;
-                    carousel.appendChild(img);
-                }
+                const img = document.createElement("img");
+                img.src = participant.image;
+                img.alt = participant.name;
+                carousel.appendChild(img);
             });
 
             // Manejar el botón "Descubrir"
             let currentIndex = 0;
             const images = document.querySelectorAll(".carousel img");
             const totalImages = images.length;
+            const duration = 10000; // Duración del carrusel (10 segundos)
+            const intervalTime = 2000; // Tiempo entre cambios (2 segundos)
 
             document.getElementById("reveal-button").addEventListener("click", () => {
-                if (images.length === 0) return;
-
-                // Mostrar el carrusel
-                images[currentIndex].classList.add("active");
+                let elapsed = 0;
                 const interval = setInterval(() => {
-                    images[currentIndex].classList.remove("active");
+                    // Rotar imágenes
                     currentIndex = (currentIndex + 1) % totalImages;
+                    carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+                    elapsed += intervalTime;
 
-                    if (images[currentIndex].alt === recipient.name) {
+                    // Detener el carrusel en la destinataria tras 10 segundos
+                    if (elapsed >= duration) {
                         clearInterval(interval);
-                        images[currentIndex].classList.add("active");
-                    } else {
-                        images[currentIndex].classList.add("active");
+                        const finalIndex = participantsData.findIndex(p => p.name === recipient.name);
+                        carousel.style.transform = `translateX(-${finalIndex * 100}%)`;
                     }
-                }, 2000);
+                }, intervalTime);
             });
         } catch (error) {
             console.error("Error procesando el identificador:", error);
