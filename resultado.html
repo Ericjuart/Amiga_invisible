@@ -30,10 +30,11 @@
     .carousel {
       display: flex;
       transition: transform 0.3s ease-in-out;
+      animation: spin 0.5s infinite; /* Animación de ruleta */
     }
     .carousel img {
       min-width: 100%;
-      height: auto;
+      height: 400px;
       border-radius: 10px;
     }
     .all-friends {
@@ -52,6 +53,10 @@
     }
     button:hover {
       background-color: #0056b3;
+    }
+    @keyframes spin {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
     }
   </style>
 </head>
@@ -110,12 +115,7 @@
             });
 
             // Manejar el botón "Descubrir"
-            let currentIndex = 0;
-            const totalImages = sliderImages.length;
-            const slideDuration = 10000; // Duración total del slider (10 segundos)
-            const slideIntervalTime = 300; // Tiempo entre transiciones (0.3 segundos)
             const revealButton = document.getElementById("reveal-button");
-
             revealButton.addEventListener("click", () => {
                 // Ocultar la imagen grupal y el botón
                 document.getElementById("group-photo").style.display = "none";
@@ -125,20 +125,23 @@
                 const carouselContainer = document.getElementById("carousel-container");
                 carouselContainer.style.display = "block";
 
-                // Slider infinito
-                let elapsed = 0;
+                // Animación tipo ruleta (giro rápido)
+                const slideDuration = 10000; // Duración total (10 segundos)
+                let currentIndex = 0;
+                const totalImages = sliderImages.length;
+                const slideIntervalTime = 200; // Tiempo entre cada "salto" (200 ms por imagen)
                 const interval = setInterval(() => {
                     currentIndex = (currentIndex + 1) % totalImages;
                     carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-                    elapsed += slideIntervalTime;
 
-                    // Detener el slider en la destinataria tras 10 segundos
-                    if (elapsed >= slideDuration) {
-                        clearInterval(interval);
-                        const finalIndex = sliderImages.findIndex(p => p.name === recipient.name);
-                        carousel.style.transform = `translateX(-${finalIndex * 100}%)`;
-                    }
                 }, slideIntervalTime);
+
+                // Detener la ruleta después de 10 segundos en la imagen correcta
+                setTimeout(() => {
+                    clearInterval(interval); // Detener la animación
+                    const finalIndex = sliderImages.findIndex(p => p.name === recipient.name);
+                    carousel.style.transform = `translateX(-${finalIndex * 100}%)`; // Mostrar la imagen de la amiga asignada
+                }, slideDuration);
             });
         } catch (error) {
             console.error("Error procesando el identificador:", error);
