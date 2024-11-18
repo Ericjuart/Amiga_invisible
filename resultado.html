@@ -42,7 +42,7 @@
 
             // Buscar al destinatario comparando sin distinguir mayúsculas/minúsculas
             const recipient = participantsData.find(p => p.name.toLowerCase().trim() === recipientName.toLowerCase().trim());
-            console.log("participantes: ",p.name.toLowerCase().trim(), "elegido: ", recipientName.toLowerCase().trim());
+            console.log("participantes: ",participantsData.name(), "elegido: ", recipientName.toLowerCase().trim());
             if (!recipient) {
                 throw new Error("Destinatario no encontrado");
             }
