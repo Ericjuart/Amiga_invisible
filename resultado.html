@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultado Amigo Invisible</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+    .recipient { font-size: 1.5em; font-weight: bold; margin-top: 20px; }
+    .recipient img { max-width: 300px; border-radius: 10px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Amigo Invisible</h1>
+  <p>Descubre a quién tienes que regalar:</p>
+  <div id="result" class="recipient"></div>
+
+  <script>
+    // Datos de los participantes (en producción esto debería estar en un backend seguro)
+    const participantsData = [
+        { name: "Ana", email: "ana@gmail.com", image: "ana.jpg" },
+        { name: "Laura", email: "laura@gmail.com", image: "laura.jpg" },
+        { name: "Maria", email: "maria@gmail.com", image: "maria.jpg" }
+    ];
+
+    // Leer el identificador de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const identifier = urlParams.get("user");
+
+    if (!identifier) {
+        document.getElementById("result").innerText = "Error: No se pudo encontrar tu resultado.";
+    } else {
+        try {
+            // Decodificar el identificador
+            const [sender, recipientName] = atob(identifier).split("-");
+            const recipient = participantsData.find(p => p.name === recipientName);
+
+            if (!recipient) {
+                throw new Error("Destinatario no encontrado");
+            }
+
+            // Mostrar los datos del destinatario
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `
+                <p>A quien debes regalar es: <strong>${recipient.name}</strong></p>
+                <img src="${recipient.image}" alt="${recipient.name}">
+            `;
+        } catch (error) {
+            console.error("Error procesando el identificador:", error);
+            document.getElementById("result").innerText = "Error: No se pudo procesar tu resultado.";
+        }
+    }
+  </script>
+</body>
+</html>
