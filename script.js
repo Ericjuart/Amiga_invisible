@@ -46,7 +46,7 @@ async function sortear() {
     // Creamos el enlace ocultando los nombres reales
     const enlace = `reveal.html?data=${encodeURIComponent(userEncoded + "." + toEncoded)}&token=${token}`;
 
-    item.innerHTML = `<strong>${dador}</strong> ➜ <a href="${enlace}" target="_blank">Amigo invisible</a>`;
+    item.innerHTML = `<strong>${dador}</strong> ➜ <a href="${enlace}" target="_blank">Amiga invisible</a>`;
     lista.appendChild(item);
   });
 

@@ -30,7 +30,7 @@ const introEl = document.getElementById("intro");
 if (!dador || !receptor) {
   document.body.innerHTML = "<h2>⚠️ Enlace inválido o corrupto.</h2>";
 } else {
-  let count = 10; // cuenta atrás en segundos
+  let count = 5; // cuenta atrás en segundos
 
   window.addEventListener("load", () => {
     setTimeout(() => {
