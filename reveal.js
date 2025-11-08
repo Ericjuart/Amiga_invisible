@@ -24,7 +24,7 @@ const countdownEl = document.getElementById("countdown");
 const revealEl = document.getElementById("reveal");
 const nombreEl = document.getElementById("nombre");
 const imagenEl = document.getElementById("imagen");
-const introEl = document.getElementById("intro");
+//const introEl = document.getElementById("intro");
 
 // Si los datos son inválidos, muestra error y corta
 if (!dador || !receptor) {
@@ -34,7 +34,7 @@ if (!dador || !receptor) {
 
   window.addEventListener("load", () => {
     setTimeout(() => {
-      introEl.classList.add("hidden");
+      //introEl.classList.add("hidden");
       countdownEl.classList.remove("hidden");
       const timer = setInterval(() => {
         countdownEl.textContent = count;
@@ -47,6 +47,6 @@ if (!dador || !receptor) {
           imagenEl.src = `./Amigas/${receptor}.jpg`;
         }
       }, 1000);
-    }, 5000); // espera 2s antes de iniciar la cuenta atrás (puedes ajustar)
+    }, -1000); // espera 2s antes de iniciar la cuenta atrás (puedes ajustar)
   });
 }
