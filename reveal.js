@@ -46,8 +46,10 @@ if (!dador || !receptor) {
         count--;
         if (count < 0) {
           clearInterval(timer);
-          audioEl.muted = false; 
-          audioEl.volume = 1;
+          setTimeout(() => {
+            audioEl.muted = false;
+            audioEl.volume = 1;
+          }, 300);
           titempEl.classList.remove("hidden");
           countdownEl.classList.add("hidden");
           revealEl.classList.remove("hidden");
