@@ -35,9 +35,9 @@ if (!dador || !receptor) {
   let count = 5; // cuenta atrás en segundos
 
   window.addEventListener("load", () => {
-    titempEl.classList.add("hidden");
     setTimeout(() => {
       //introEl.classList.add("hidden");
+      titempEl.classList.add("hidden");
       countdownEl.classList.remove("hidden");
       titempEl.classList.add("hidden");
       const timer = setInterval(() => {
@@ -45,13 +45,12 @@ if (!dador || !receptor) {
         count--;
         if (count < 0) {
           clearInterval(timer);
-          titempEl.classList.remove("hidden");
           countdownEl.classList.add("hidden");
           revealEl.classList.remove("hidden");
-          nombreEl.textContent = receptor;
+          nombreEl.textContent = "!!!!!!!!!!  "+receptor+"  !!!!!!!!!!";
           imagenEl.src = `./Amigas/${receptor}.jpg`;
         }
       }, 1000);
-    }, 3000); // espera 2s antes de iniciar la cuenta atrás (puedes ajustar)
+    }, 2000); // espera 2s antes de iniciar la cuenta atrás (puedes ajustar)
   });
 }
