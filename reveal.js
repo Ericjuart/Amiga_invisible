@@ -32,8 +32,6 @@ const audioEl = document.getElementById("sonido");
 if (!dador || !receptor) {
   document.body.innerHTML = "<h2>⚠️ Enlace inválido o corrupto.</h2>";
 } else {
-  audioEl.muted = false; 
-  audioEl.volume = 1;
 
   let count = 5; // cuenta atrás en segundos
 
@@ -48,6 +46,8 @@ if (!dador || !receptor) {
         count--;
         if (count < 0) {
           clearInterval(timer);
+          audioEl.muted = false; 
+          audioEl.volume = 1;
           titempEl.classList.remove("hidden");
           countdownEl.classList.add("hidden");
           revealEl.classList.remove("hidden");
