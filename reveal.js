@@ -38,15 +38,17 @@ if (!dador || !receptor) {
   let count = 5; // cuenta atrás en segundos
 
   window.addEventListener("load", () => {
+    titempEl.classList.add("hidden");
     setTimeout(() => {
-      titempEl.classList.add("hidden");
       //introEl.classList.add("hidden");
       countdownEl.classList.remove("hidden");
+      titempEl.classList.add("hidden");
       const timer = setInterval(() => {
         countdownEl.textContent = count;
         count--;
         if (count < 0) {
           clearInterval(timer);
+          titempEl.classList.remove("hidden");
           countdownEl.classList.add("hidden");
           revealEl.classList.remove("hidden");
           nombreEl.textContent = receptor;
