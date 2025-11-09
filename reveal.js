@@ -25,7 +25,6 @@ const revealEl = document.getElementById("reveal");
 const nombreEl = document.getElementById("nombre");
 const imagenEl = document.getElementById("imagen");
 const titempEl = document.getElementById("titemp");
-const audioEl = document.getElementById("sonido");
 //const introEl = document.getElementById("intro");
 
 // Si los datos son inválidos, muestra error y corta
@@ -46,10 +45,6 @@ if (!dador || !receptor) {
         count--;
         if (count < 0) {
           clearInterval(timer);
-          setTimeout(() => {
-            audioEl.muted = false;
-            audioEl.volume = 1;
-          }, 300);
           titempEl.classList.remove("hidden");
           countdownEl.classList.add("hidden");
           revealEl.classList.remove("hidden");
