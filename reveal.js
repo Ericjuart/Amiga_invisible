@@ -67,8 +67,8 @@ if (!dador || !receptor) {
           clearInterval(timer);
           countdownEl.classList.add("hidden");
           revealEl.classList.remove("hidden");
-          nombreEl.textContent = "!!!!!🎁🎁🎁🎁  "+receptor+"  🎁🎁🎁🎁!!!!!";
-          sentidoEl.textContent = "👀​👃​👅​👂​🖐️​     EL "+sentido+"    ​​​ 🖐️👂👅👃👀​";
+          nombreEl.textContent = "!!!!!  "+receptor+"  !!!!!";
+          sentidoEl.textContent = "EL "+sentido;
           imagenEl.src = `./Amigas/${receptor}.jpg`;
         }
       }, 1000);
