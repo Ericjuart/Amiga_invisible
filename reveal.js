@@ -5,6 +5,12 @@ function decodeBase64(str) {
     return "(desconocido)";
   }
 }
+const sentidos = ["OLFATO", "TACTO", "GUSTO", "VISTA", "OIDO"];
+
+function getSentidoAleatorio() {
+  const indice = Math.floor(Math.random() * sentidos.length);
+  return sentidos[indice];
+}
 
 // Obtener parámetros y decodificar nombres
 function getDecodedNames() {
@@ -20,11 +26,25 @@ function getDecodedNames() {
 }
 
 const { dador, receptor } = getDecodedNames();
+// 👉 Guardar o recuperar el sentido asignado
+let sentido;
+const key = `sentido_${receptor}`; // clave única por persona
+const sentidoGuardado = localStorage.getItem(key);
+
+if (sentidoGuardado) {
+  sentido = sentidoGuardado; // ya tiene uno asignado
+} else {
+  sentido = getSentidoAleatorio(); // genera uno nuevo
+  localStorage.setItem(key, sentido); // lo guarda para la próxima
+}
+
+
 const countdownEl = document.getElementById("countdown");
 const revealEl = document.getElementById("reveal");
 const nombreEl = document.getElementById("nombre");
 const imagenEl = document.getElementById("imagen");
 const titempEl = document.getElementById("titemp");
+const sentidoEl = document.getElementById("sentido");
 //const introEl = document.getElementById("intro");
 
 // Si los datos son inválidos, muestra error y corta
@@ -47,7 +67,8 @@ if (!dador || !receptor) {
           clearInterval(timer);
           countdownEl.classList.add("hidden");
           revealEl.classList.remove("hidden");
-          nombreEl.textContent = "!!!!!!!!!!  "+receptor+"  !!!!!!!!!!";
+          nombreEl.textContent = "!!!!!🎁🎁🎁🎁  "+receptor+"  🎁🎁🎁🎁!!!!!";
+          sentidoEl.textContent = "👀​👃​👅​👂​🖐️​     EL "+sentido+"    ​​​ 🖐️👂👅👃👀​";
           imagenEl.src = `./Amigas/${receptor}.jpg`;
         }
       }, 1000);
